@@ -2,9 +2,9 @@ import java.util.Random;
 
 public class GameLogic {
 
-    private int correctGuess;
+    int correctGuess;
     private int maxAttempts;
-    private int attemptsUsed;
+    int attemptsUsed;
     private int guessedNumber;
 
     public GameLogic(int maxAttempts) {
@@ -20,7 +20,7 @@ public class GameLogic {
             return true;
 
         } else if ( guessedNumber < correctGuess) {
-            System.out.println("Your guess is lower"); //Jlabel
+            System.out.println("Your guess is lower");
             return false;
         } else {
             System.out.println("Your guess is higher");

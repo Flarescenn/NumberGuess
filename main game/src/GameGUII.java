@@ -5,15 +5,19 @@ import java.awt.event.*;
 public class GameGUII extends JFrame {
 
     private JButton startButton, historyButton, exitButton;
-    private JLabel titleLabel, messageLabel;
-    private int selectedState;
+    private JLabel titleLabel;
+    private GameLogic gameLogic;
+    GameController gameController;
+    JTextArea feedbackArea;
+
 
     public GameGUII() {
         super("Number Guessing Game"); // Set window title
 
         // Create UI components
         titleLabel = new JLabel("Guess it", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 48)); // Adjust font size and style
+        titleLabel.setForeground(Color.white);
+        titleLabel.setFont(new Font("Arial",  Font.BOLD, 48)); // Adjust font size and style
 
         startButton = new JButton("Start");
         historyButton = new JButton("History");
@@ -23,41 +27,47 @@ public class GameGUII extends JFrame {
         historyButton.setPreferredSize(new Dimension(100, 50));
         exitButton.setPreferredSize(new Dimension(100, 50));
 
-        messageLabel = new JLabel();
+
+        feedbackArea = new JTextArea(5, 20); // Adjust rows and columns as needed
+        feedbackArea.setEditable(false);
 
         // Create main panel with FlowLayout (buttons centered)
         JPanel mainPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         mainPanel.setBackground(Color.BLACK); // Set black background
+        mainPanel.setBounds(40,80,800,800);
 
-        // Add components to the panel
         mainPanel.add(titleLabel);
         mainPanel.add(startButton);
         mainPanel.add(historyButton);
         mainPanel.add(exitButton);
-        mainPanel.add(messageLabel);
+        mainPanel.add(feedbackArea);
 
-        // Add panel to the frame
         this.getContentPane().add(mainPanel);
 
-        // Set window properties
+        // Setting window properties
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
-        this.setLocationRelativeTo(null); // Center the window on screen
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
 
-        // Register ActionListeners for button clicks
+
+
+        GameLogic gameLogic=new GameLogic(10);
+        GameController gameController= new GameController(gameLogic, feedbackArea);
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle "Start" button click (logic goes here)
-                messageLabel.setText("Welcome to the Guessing Game!\nClick here to guess a number between 0 and 15."); // Set a temporary message (optional)
+
+                feedbackArea.setText("Welcome to the Guessing Game!\n");
+                gameController.startGame(feedbackArea);
+                gameController.promptForGuess(feedbackArea);
             }
         });
         historyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle "History" button click (logic goes here)
-                messageLabel.setText("Showing history..."); // Set a temporary message (optional)
+
+                feedbackArea.setText("Showing history...");
             }
         });
         exitButton.addActionListener(new ActionListener() {

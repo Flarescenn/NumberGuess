@@ -21,6 +21,7 @@ public class CustomButton extends JButton {
 
         // Handle mouse events for hover and selection
         MouseAdapter mouseAdapter = new MouseAdapter() {
+
             @Override
             public void mouseEntered(MouseEvent e) {
                 // Change background to white on hover
