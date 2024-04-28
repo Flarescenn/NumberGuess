@@ -50,10 +50,12 @@ public class GameGUII extends JFrame {
 
 
         feedbackArea = new JTextArea(1, 1); // Adjust rows and columns as needed
+        feedbackArea.setLineWrap(true); // Enable line wrap
+        feedbackArea.setWrapStyleWord(true);
         feedbackArea.setEditable(false);
         feedbackArea.setBackground(Color.BLACK);
         feedbackArea.setForeground(Color.WHITE);
-        feedbackArea.setFont(new Font("Monospaced", Font.PLAIN, 30));
+        feedbackArea.setFont(new Font("Serif", Font.PLAIN, 25));
 
 
         // Create main panel with GridLayout (buttons centered)
@@ -95,13 +97,13 @@ public class GameGUII extends JFrame {
         this.setVisible(true);
 
 
-        GameLogic gameLogic = new GameLogic(10);
-        GameController gameController = new GameController(gameLogic, feedbackArea);
+
 
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                GameLogic gameLogic = new GameLogic(5);
+                GameController gameController = new GameController(gameLogic, feedbackArea);
                 feedbackArea.setText("Welcome to the Guessing Game!\n");
                 gameController.startGame(feedbackArea);
                 gameController.promptForGuess(feedbackArea);
